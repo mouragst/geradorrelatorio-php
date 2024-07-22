@@ -1,6 +1,10 @@
 <?php
 
+use App\Session\Login;
+
 require 'vendor/autoload.php';
+
+Login::requireLogin();
 
 include 'includes/navbar.php';
 include 'includes/header.php';

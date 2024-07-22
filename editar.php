@@ -1,8 +1,11 @@
 <?php
 
 use App\Entity\Store;
+use App\Session\Login;
 
 require 'vendor/autoload.php';
+
+Login::requireLogin();
 
 define('TITLE', 'Editar Loja');
 

@@ -12,6 +12,7 @@ foreach ($lojas as $loja) {
     $nomeLojas .= '<option value="'.$loja->id.'">'.$loja->loja.'</option>';
 }
 
+
 ?>
 
 <form method="post">
@@ -36,13 +37,13 @@ foreach ($lojas as $loja) {
             <label>Auditor Responsável: </label>
             <select class="form-control mb-2" name="auditor"><option value="Robson Pinheiro">Robson Pinheiro</option></select>
             <label>Data da auditoria: </label>
-            <input type="date" class="form-control mb-2" name="date">
+            <input type="date" class="form-control mb-2" name="date" value="<?= date('Y-m-d'); ?>">
         </div>
 
         <div id="Estoque" class="tabcontent form-group">
             <h3>Estoque</h3>
             <label>a. Quantidade física de produtos em estoque.</label>
-            <textarea type="text" name="falta" class="form-control my-2" rows="4"></textarea>
+            <textarea type="text" name="falta_estoque" class="form-control my-2" rows="4"></textarea>
             <label>b. Conferência de registros no sistema versus contagem física.</label>
             <textarea type="text" name="cruzamento" class="form-control my-2" rows="4"></textarea>
             <label>c. Identificação de produtos obsoletos ou vencidos.</label>
@@ -93,10 +94,10 @@ foreach ($lojas as $loja) {
 
         <div id="Observacoes" class="tabcontent form-group">
             <h3>Observações</h3>
-            <label>a. Insumos em loja atende a necessidade.</label>
-            <textarea type="text" name="insumonecessidade" class="form-control my-2" rows="4"></textarea>
-            <label>b. Regularidade no abastecimento de materiais necessários.</label>
-            <textarea type="text" name="insumofrequencia" class="form-control my-2" rows="4"></textarea>
+            <label>a. Registro de quaisquer descobertas, irregularidades ou sugestões de melhoria em cada área auditada.</label>
+            <textarea type="text" name="feedback" class="form-control my-2" rows="4"></textarea>
+            <label>b. Avaliação geral da conformidade com os padrões da Cellular.com e Claro.</label>
+            <textarea type="text" name="avaliacao" class="form-control my-2" rows="4"></textarea>
         </div>
 
         <div id="Conclusao" class="tabcontent form-group">

@@ -1,36 +1,19 @@
 <?php
 
-use PhpOffice\PhpWord\TemplateProcessor;
-
 require 'vendor/autoload.php';
 
-$templateFile = 'word_documents/templates/template_auditoria.docx';
-$templateProcessor = new TemplateProcessor($templateFile);
-$directory = __DIR__.'word_documents/relatorios';
-$fullPathAndName = " - Relatório de auditoria.docx";
+use App\Session\Login;
+use App\Entity\DocGenerator;
 
+Login::requireLogin();
 
-if (isset($_POST['cruzamento'], 
-          $_POST['caixadivergente'], 
-          $_POST['padraopex'], 
-          $_POST['maquinapagamento'], 
-          $_POST['insumonecessidade'], 
-          $_POST['detalhamentoacoes'])) {
-            
-            $templateProcessor->setValue('{{FALTAS}}', $_POST['falta']);
-            $templateProcessor->setValue('{{CRUZAMENTO}}', $_POST['cruzamento']);
-            $templateProcessor->setValue('{{CAIXA_DIVERGENTE}}', $_POST['caixadivergente']);
-            $templateProcessor->setValue('{{PADRAO_PEX}}', $_POST['padraopex']);
-            $templateProcessor->setValue('{{MAQUINA_PAGAMENTO}}', $_POST['maquinapagamento']);
-            $templateProcessor->setValue('{{INSUMOS_NECESSIDADE}}', $_POST['insumonecessidade']);
-            $templateProcessor->setValue('{{DETALHAMENTO_ACOES}}', $_POST['detalhamentoacoes']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loja'])) {
+  $directory = 'D:\WorkSpace\ws-php\geradorrelatorio-php\word_documents\relatorios';
+  $templateFile = 'word_documents/templates/template_auditoria.docx';
+  $reportGenerator = new DocGenerator($templateFile, $directory);
 
-            $fullPathAndName = __DIR__.'/word_documents/relatorios/'.$_POST['loja'].' - Relatório de Auditoria.docx';
-
-            $templateProcessor->saveAs($fullPathAndName);
-          }
-
-
+  $reportGenerator->generateDocument($_POST);
+}
 
 include 'includes/navbar.php';
 include 'includes/header.php';
