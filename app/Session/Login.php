@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Session;
 
 class Login {
@@ -22,7 +21,7 @@ class Login {
 
         $_SESSION['user'] = [
             'id' => $user->id,
-            'user' => $user->user,
+            'name' => $user->name,
             'email' => $user->email,
         ];
 

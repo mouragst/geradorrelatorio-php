@@ -11,7 +11,7 @@ if (isset($_GET['file'])) {
     $fileName = basename($_GET['file']);
     
     // Define o diretório onde os arquivos estão localizados
-    $directory = 'D:\WorkSpace\ws-php\geradorrelatorio-php\word_documents\relatorios';
+    $directory = getenv('DIRECTORY');
     
     // Construa o caminho completo para o arquivo
     $filePath = $directory . '/' . $fileName;

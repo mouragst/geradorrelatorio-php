@@ -9,8 +9,10 @@ class Archive {
     private $files;
     private $itemsPerPage;
     private $currentPage;
+    private $filterFileName;
+    private $filterFileType;
 
-    public function __construct($directory = '', $extension = '.docx', $itemsPerPage = 5){
+    public function __construct($directory = '', $extension = '.docx', $itemsPerPage = 5, $filterFileName = '', $filterFileType = ''){
         $this->directory = $directory;
         $this->extension = $extension;
         $this->itemsPerPage = $itemsPerPage;
@@ -19,6 +21,8 @@ class Archive {
         if ($this->files === false) {
             $this->files = [];
         }
+        $this->filterFileName = $filterFileName;
+        $this->filterFileType = $filterFileType;
     }
 
     public function getFiles() {
@@ -32,12 +36,25 @@ class Archive {
     public function getOffset() {
         return ($this->currentPage - 1) * $this->itemsPerPage;
     }
+    
+    private function applyFilters($files) {
+        return array_filter($files, function($file) {
+            $fileName = basename($file);
+            $fileType = pathinfo($file, PATHINFO_EXTENSION);
+
+            $nameMatch = empty($this->filterFileName) || stripos($fileName, $this->filterFileName) !== false;
+            $typeMatch = empty($this->filterFileType) || $fileType === $this->filterFileType;
+
+            return $nameMatch && $typeMatch;
+        });
+    }
 
     public function getPaginatedFiles() {
-        $totalItems = count($this->files);
+        $filteredFiles = $this->applyFilters($this->files);
+        $totalItems = count($filteredFiles);
         $totalPages = ceil($totalItems / $this->itemsPerPage);
         $offset = ($this->currentPage - 1) * $this->itemsPerPage;
-        return array_slice($this->files, $offset, $this->itemsPerPage);
+        return array_slice($filteredFiles, $offset, $this->itemsPerPage);
     }
 
     public function deleteFile($fileName) {
@@ -56,14 +73,11 @@ class Archive {
         if (count($paginatedItems) > 0) {
             $offset = $this->getOffset();
             foreach ($paginatedItems as $index => $file) {
-                // Obter o nome do arquivo
                 $fileName = basename($file);
-                // Obter a data de modificação do arquivo
                 $fileDate = date("d/m/Y - H:i", filemtime($file));
-                // Extrair o nome da loja
-                $loja = explode('_', $fileName)[0];
+                $loja = explode('_', $fileName)[1];
                 $loja = explode('-', $loja)[0];
-        
+
                 $results .= '<tr>
                                 <td>' . ($offset + $index + 1) . '</td> 
                                 <td>' . htmlspecialchars($loja) . '</td> 
@@ -79,10 +93,11 @@ class Archive {
                             </tr>';
             }
         } else {
-            $results .= '<tr><td colspan="5">Nenhum arquivo encontrado.</td></tr>';
+            $results .= '<tr><td colspan="5" class="text-center h5">Nenhum arquivo encontrado.</td></tr>';
         }
         return $results;
     }
+
 
     public function renderPagination() {
         $totalPages = $this->getTotalPages();

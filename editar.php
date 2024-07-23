@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 } 
 
 if (!isset($_GET['id'])) {
-    header('Location: lojas.php?status=error');
+    header('Location: listagem_lojas.php?status=error');
     exit;
 }
 

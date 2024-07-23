@@ -5,13 +5,11 @@ use App\Entity\Store;
 require "vendor/autoload.php";
 
 $lojas = Store::getLojas();
-$nomeLojas = '';
-$enderecoLojas = '';
 
 foreach ($lojas as $loja) {
-    $nomeLojas .= '<option value="'.$loja->id.'">'.$loja->loja.'</option>';
+    $idLoja = str_pad($loja->id, 3, '0', STR_PAD_LEFT);
+    $nomeLojas .= '<option value="'.$loja->id.'">'.$idLoja.' - '.$loja->loja.'</option>';
 }
-
 
 ?>
 

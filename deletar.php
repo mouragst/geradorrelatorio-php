@@ -10,7 +10,7 @@ Login::requireLogin();
 if (isset($_GET['id'])) {
     (new Store)->deletar($_GET['id']);
 
-    header('Location: lojas.php?status=success');
+    header('Location: lojas.php?status=deleted');
     exit;
 }
 

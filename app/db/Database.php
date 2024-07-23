@@ -1,15 +1,20 @@
 <?php
 
 namespace App\Db;
+
+require 'vendor/autoload.php';
+
+use App\Common\Environment;
 use PDO;
-use PDOException;
+
+Environment::load(__DIR__.'/../../');
+
+define('DB_HOST', getenv('DB_HOST'));
+define('DB_NAME', getenv('DB_NAME'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
 
 class Database {
-
-    const DB_HOST = 'localhost';
-    const DB_NAME = 'auditoria_estoque_cellular';
-    const DB_USER = 'root';
-    const DB_PASS = '';
 
     private $table;
     private $connection;
@@ -21,7 +26,7 @@ class Database {
 
     private function setConnection() {
         try {
-            $this->connection = new PDO('mysql:host='.self::DB_HOST.';dbname='.self::DB_NAME, self::DB_USER, self::DB_PASS, [
+            $this->connection = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASSWORD, [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
             ]);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

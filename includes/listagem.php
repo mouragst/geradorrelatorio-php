@@ -4,10 +4,7 @@ use App\Entity\Archive;
 
 require 'vendor/autoload.php';
 
-date_default_timezone_set('America/Sao_Paulo');
-$directory = 'D:\WorkSpace\ws-php\geradorrelatorio-php\word_documents\relatorios';
-
-$archives = new Archive($directory, '.docx', 10);
+$archives = new Archive($directory, '.docx', 10, $filterFileName);
 
 // Função para excluir arquivo
 if (isset($_POST['delete_file'])) {
@@ -21,7 +18,25 @@ if (isset($_POST['delete_file'])) {
 }
 
 ?>
+<section>
+    <form method="get">
 
+    <div class="row my-2">
+
+        <div class="col">
+            <label>Buscar por relatório</label>
+            <input type="text" name="filterFileName" class="form-control">
+        </div>
+
+        <div class="col d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+
+    </div>
+    </form>
+</section>
+
+<section>
     <table class="table mt-2">
         <thead>
             <tr>
@@ -42,8 +57,7 @@ if (isset($_POST['delete_file'])) {
      <?php
         echo $archives->renderPagination();
      ?>
-
-
 </body>
+</section>
 </html>
 
