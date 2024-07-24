@@ -4,9 +4,13 @@ Navbar -> Listagem de arquivos (PDFs gerados) e listagem de lojas (pode ser subs
 Preencher relatório -> campos a serem preenchidos, e ao clicar em gerar, ele transforma de DOCX para PDF e apaga o DOCX <br><br>
 Adicionar loja -> adiciona uma loja ao banco de dados
 
-## Obrigatoriedades:
+## Requisitos para executar
 
-Crie um arquivo .env na raiz do projeto e use copie o .env.example
+PHP <br>
+Python com biblioteca docx2pdf
 
-Adicione corretamente o diretório python no .env
-Inicialize o Environment::load('diretório do env') dentro do DocGenerator
+## Como usar:
+
+Crie um arquivo .env na raiz do projeto e copie o conteudo do .env.example<br>
+Adicione corretamente o diretório python no .env <br>
+Inicialize o Environment::load(__DIR__.'/../../') dentro do DocGenerator<br>
