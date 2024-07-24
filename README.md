@@ -1,6 +1,6 @@
 # Gerador e listador de relatórios - DOCX para PDF
 
-Navbar -> Listagem de arquivos (PDFs gerados) e listagem de lojas (pode ser substituido por qualquer coisa com o banco de dados, é utilizado para substituir no relatório)
+Navbar -> Listagem de arquivos (PDFs gerados) e listagem de lojas (pode ser substituido por qualquer coisa com o banco de dados, é utilizado para substituir no relatório) <br>
 Preencher relatório -> campos a serem preenchidos, e ao clicar em gerar, ele transforma de DOCX para PDF e apaga o DOCX
 Adicionar loja -> adiciona uma loja ao banco de dados
 
