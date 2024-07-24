@@ -1,8 +1,11 @@
 <?php
 
 require "vendor/autoload.php";
+
+use App\Common\Environment;
 use App\Session\Login;
 
+Environment::load(__DIR__);
 Login::requireLogin();
 
 // Verifica se o parâmetro 'file' está presente na URL
@@ -11,7 +14,7 @@ if (isset($_GET['file'])) {
     $fileName = basename($_GET['file']);
     
     // Define o diretório onde os arquivos estão localizados
-    $directory = getenv('DIRECTORY');
+    $directory = __DIR__.'/word_documents/relatorios';
     
     // Construa o caminho completo para o arquivo
     $filePath = $directory . '/' . $fileName;
@@ -41,3 +44,4 @@ if (isset($_GET['file'])) {
     // Se o parâmetro 'file' não estiver presente, exibe uma mensagem de erro
     echo 'Nenhum arquivo especificado.';
 }
+

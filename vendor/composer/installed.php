@@ -3,7 +3,7 @@
         'name' => 'moura/geradorrelatorio-php',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'df1fb96c4701e1061ce24c26de8d1b346ea0ad2c',
+        'reference' => 'e5e22236fc8d7b2012aace99bb3264a5e6e02b57',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'moura/geradorrelatorio-php' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'df1fb96c4701e1061ce24c26de8d1b346ea0ad2c',
+            'reference' => 'e5e22236fc8d7b2012aace99bb3264a5e6e02b57',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -5,16 +5,14 @@ namespace App\Entity;
 class Archive {
 
     private $directory;
-    private $extension;
     private $files;
     private $itemsPerPage;
     private $currentPage;
     private $filterFileName;
     private $filterFileType;
 
-    public function __construct($directory = '', $extension = '.docx', $itemsPerPage = 5, $filterFileName = '', $filterFileType = ''){
+    public function __construct($directory = '', $itemsPerPage = 5, $filterFileName = '', $filterFileType = ''){
         $this->directory = $directory;
-        $this->extension = $extension;
         $this->itemsPerPage = $itemsPerPage;
         $this->currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
         $this->files = glob($this->directory . "/*.*");
@@ -30,7 +28,8 @@ class Archive {
     }
     
     public function getTotalPages() {
-        return ceil(count($this->files) / $this->itemsPerPage);
+        $filteredFiles = $this->applyFilters($this->files);
+        return ceil(count($filteredFiles) / $this->itemsPerPage);
     }
 
     public function getOffset() {

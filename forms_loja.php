@@ -9,7 +9,6 @@ Login::requireLogin();
 
 define('TITLE', "Adicionar loja");
 
-
 if (isset($_POST['idLoja'], $_POST['loja'], $_POST['endereco'])) {
     $loja = new Store;
 

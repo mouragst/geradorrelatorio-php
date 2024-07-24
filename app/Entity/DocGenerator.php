@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use App\Common\Environment;
 use DateTime;
 use IntlDateFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
+
+Environment::load(__DIR__.'/../../');
 
 class DocGenerator {
 
@@ -37,11 +40,24 @@ class DocGenerator {
         // Retorna uma string vazia se a data for inválida
         return '';
     }
+    
+    private function executePython ($fullPathAndName) {
+        // Configurações para executar
+        $pdfPath = str_replace('.docx', '.pdf', $fullPathAndName);
+        $pythonScript = __DIR__.'/../utils/convert.py';
+        $pythonPath = getenv('PYTHON_FOLDER');  // Use o caminho absoluto se necessário
+
+        //Comando de execução e execução
+        $command = escapeshellcmd("$pythonPath $pythonScript \"$fullPathAndName\" \"$pdfPath\"");
+        exec($command);
+
+        // Retorna o novo arquivo PDF
+        return $pdfPath;
+    }
 
     public function displayFormattedDate($dateString) {
         return $this->formatDateInPortuguese($dateString);
     }
-
 
     // Formata os itens do post, pois ao gerar o documento sem formatação, a break line no textarea mantem o
     // texto como um só, sem dar break line no documento gerado
@@ -123,6 +139,16 @@ class DocGenerator {
     
         // Salva o arquivo
         $templateProcessor->saveAs($fullPathAndName);
+
+        $pdfPath = $this->executePython($fullPathAndName);
+
+        if ($pdfPath && file_exists($pdfPath)) {
+            unlink($fullPathAndName);
+            return $pdfPath;
+        } else {
+            echo "Falha na conversão ou o arquivo PDF não foi gerado.";
+            return false;
+        }
 
         return $fullPathAndName;
     }

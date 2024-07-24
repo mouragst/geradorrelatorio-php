@@ -4,7 +4,7 @@ use App\Session\Login;
 
 $loggedUser = Login::getUserLogged();
 
-$user = $loggedUser ? $loggedUser['name'].' |<a href="logout.php" class="text-dark fw-bold ms-2">Deslogar</a>' : 
+$user = $loggedUser ? 'Olá, '.$loggedUser['name'].' |<a href="logout.php" class="text-danger fw-bold ms-2">Deslogar</a>' : 
 'Visitante <a href="login.php" class="text-light fw-bold ml-2"> Entrar</a>';
 
 ?>

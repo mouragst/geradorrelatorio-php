@@ -4,7 +4,7 @@ use App\Entity\Archive;
 
 require 'vendor/autoload.php';
 
-$archives = new Archive($directory, '.docx', 10, $filterFileName);
+$archives = new Archive($directory, 8, $filterFileName);
 
 // Função para excluir arquivo
 if (isset($_POST['delete_file'])) {
@@ -23,7 +23,7 @@ if (isset($_POST['delete_file'])) {
 
     <div class="row my-2">
 
-        <div class="col">
+        <div class="col-11">
             <label>Buscar por relatório</label>
             <input type="text" name="filterFileName" class="form-control">
         </div>

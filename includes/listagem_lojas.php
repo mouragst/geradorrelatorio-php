@@ -34,14 +34,16 @@ unset($_GET['status']);
 $gets = http_build_query($_GET);
 
 $paginas = $pagination->getPages();
+$resultadoPaginas = '<nav><ul class="pagination">';
 
-foreach ($paginas as $key => $pagina) {
-    $class = $pagina['current'] ? "btn-primary" : "btn-light";
-    $resultadoPaginas .= '<a href=?pagina='.$pagina['page'].'&'.$gets.'>
-                            <button class="btn '.$class.'" type="button">'.$pagina['page'].'</button>
-                          </a>';
+foreach ($paginas as $pagina) {
+    $class = $pagina['current'] ? ' active' : ''; // Observe o espaço antes de 'active'
+    $resultadoPaginas .= '<li class="page-item' . $class . '">
+                            <a class="page-link" href="?pagina=' . $pagina['page'] . '&' . $gets . '">' . $pagina['page'] . '</a>
+                          </li>';
 }
 
+$resultadoPaginas .= '</ul></nav>';
 
 ?>
 <section>
@@ -49,12 +51,12 @@ foreach ($paginas as $key => $pagina) {
 
     <div class="row my-2">
 
-        <div class="col">
+        <div class="col-8">
             <label>Buscar por loja</label>
             <input type="text" name="filterLoja" class="form-control">
         </div>
 
-        <div class="col">
+        <div class="col-3">
             <label>ID Loja</label>
             <select name="filterId" class="form-control">
                 <option value="">Selecione a Loja</option>
@@ -86,7 +88,7 @@ foreach ($paginas as $key => $pagina) {
                 <?= $results ?>
             </tbody>
         </table>
-        <?= $resultadoPaginas ?>
     </div>
+    <?= $resultadoPaginas ?>
 </section>
 <script src="../assets/script.js"></script>

@@ -8,6 +8,7 @@ require 'vendor/autoload.php';
 
 Login::requireLogin();
 
+// Alert switch cases
 if (isset($_GET['status'])) {
     switch ($_GET['status']) {
         case 'success':
